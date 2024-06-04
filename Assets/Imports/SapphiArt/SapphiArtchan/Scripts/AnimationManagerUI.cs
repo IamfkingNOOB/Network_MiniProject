@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
+using UnityEngine;
 
-public class AnimationManagerUI : MonoBehaviour {
-
+public class AnimationManagerUI : MonoBehaviour
+{
     internal string _Animation = null;
     internal string _EyesChangeType = null;
     internal string _EyebrowsChangeType = null;
@@ -30,7 +29,6 @@ public class AnimationManagerUI : MonoBehaviour {
     {
         _Animation = "jump";
     }
-
 
     public void SetAnimation_WinPose()
     {
@@ -140,7 +138,6 @@ public class AnimationManagerUI : MonoBehaviour {
         _FacialValue = newFacialValue * 100;
     }
 
-
     public void SetFacial_Eyebrow_L_Anger(float newFacialValue)
     {
         _GeneralChangeType = "eyebrows";
@@ -168,7 +165,6 @@ public class AnimationManagerUI : MonoBehaviour {
         _EyebrowsChangeType = "sadR";
         _FacialValue = newFacialValue * 100;
     }
-
 
     public void SetFacial_Mouth_E(float newFacialValue)
     {
@@ -211,7 +207,6 @@ public class AnimationManagerUI : MonoBehaviour {
         _MouthChangeType = "mouthExtra03";
         _FacialValue = newFacialValue * 100;
     }
-
 
     public void SetFacial_MouthBottomTeeth(float newFacialValue)
     {

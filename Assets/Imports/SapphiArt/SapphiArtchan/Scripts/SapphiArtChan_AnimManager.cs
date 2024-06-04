@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
+using UnityEngine;
 
-public class SapphiArtChan_AnimManager : MonoBehaviour {
-
+public class SapphiArtChan_AnimManager : MonoBehaviour
+{
     private Animator _SapphiArtChanAnimator;                //Character Animation
     internal string _SapphiArtChanAnimation = null;         //Character Animation Name
     private AnimationManagerUI _AnimationManagerUI;         //Character Animation UI Connection
@@ -22,6 +21,7 @@ public class SapphiArtChan_AnimManager : MonoBehaviour {
     private float _SapphiArtChanLastFacial = 0.0f;    //Character Last Facial Parameter
     private bool _SapphiArtChanFacialBool = false;    //Character Facial Parameter Bool
     private bool _SapphiArtChanLastFacialBool = false;    //Character Last Facial Parameter Bool
+
     //BlendShapeValues
     private float _SapphiArtChanFacial_Eye_L_Happy = 0.0f;
     private float _SapphiArtChanFacial_Eye_R_Happy = 0.0f;
@@ -53,10 +53,6 @@ public class SapphiArtChan_AnimManager : MonoBehaviour {
     private bool _SapphiArtChanFacial_Mouth_Tongue = false;
 
 
-
-
-
-
     void Start()
     {
         _SapphiArtChanAnimator = this.gameObject.GetComponent<Animator>();
@@ -77,6 +73,7 @@ public class SapphiArtChan_AnimManager : MonoBehaviour {
             if (t.name == "TopTeeth")
                 _SapphiArtChanRenderer_TopTeeth = t.gameObject.GetComponent<SkinnedMeshRenderer>();
         }
+
         _SapphiArtChanRenderer_Tongue.enabled = false;
         _SapphiArtChanRenderer_TopTeeth.enabled = false;
     }
@@ -94,7 +91,6 @@ public class SapphiArtChan_AnimManager : MonoBehaviour {
         {
             //Set Animation Parameter
             _SapphiArtChanAnimation = _AnimationManagerUI._Animation;
-            //_SapphiArtChanAnimation = "hit01";
         }
     }
 
@@ -197,7 +193,6 @@ public class SapphiArtChan_AnimManager : MonoBehaviour {
 
     void SetFacial()
     {
-
         //Override the Animator
         _SapphiArtChanRenderer_Face.SetBlendShapeWeight(0, _SapphiArtChanFacial_Eye_L_Happy);
         _SapphiArtChanRenderer_Face.SetBlendShapeWeight(1, _SapphiArtChanFacial_Eye_R_Happy);
@@ -224,14 +219,12 @@ public class SapphiArtChan_AnimManager : MonoBehaviour {
         _SapphiArtChanRenderer_Face.SetBlendShapeWeight(10, _SapphiArtChanFacial_Mouth_Puff);
         _SapphiArtChanRenderer_Face.SetBlendShapeWeight(11, _SapphiArtChanFacial_Mouth_Smile);
 
-        if(_SapphiArtChanRenderer_BottomTeeth.isVisible)
+        if (_SapphiArtChanRenderer_BottomTeeth.isVisible)
             _SapphiArtChanRenderer_BottomTeeth.SetBlendShapeWeight(0, _SapphiArtChanFacial_Mouth_BottomTeeth);
+        
 
+        string _GeneralChangeType = _AnimationManagerUI._GeneralChangeType;
 
-
-
-
-    string _GeneralChangeType = _AnimationManagerUI._GeneralChangeType;
         _SapphiArtChanLastFacial = _SapphiArtChanFacial;
         _SapphiArtChanFacial = _AnimationManagerUI._FacialValue;
         _SapphiArtChanLastFacialBool = _SapphiArtChanFacialBool;
@@ -245,6 +238,7 @@ public class SapphiArtChan_AnimManager : MonoBehaviour {
         else if (_GeneralChangeType == "eyes")
         {
             string _EyesChangeType = _AnimationManagerUI._EyesChangeType;
+
             if (_EyesChangeType == null)
                 return;
 
@@ -257,33 +251,35 @@ public class SapphiArtChan_AnimManager : MonoBehaviour {
                 _SapphiArtChanFacial_Eye_L_Happy = _SapphiArtChanFacial;
                 _SapphiArtChanRenderer_Face.SetBlendShapeWeight(0, _SapphiArtChanFacial);
             }
+
             else if (_EyesChangeType == "happyR")
             {
                 _EyesLastChangeType = _EyesChangeType;
                 _SapphiArtChanFacial_Eye_R_Happy = _SapphiArtChanFacial;
                 _SapphiArtChanRenderer_Face.SetBlendShapeWeight(1, _SapphiArtChanFacial);
             }
+
             else if (_EyesChangeType == "closedL")
             {
                 _SapphiArtChanFacial_Eye_L_Closed = _SapphiArtChanFacial;
                 _EyesLastChangeType = _EyesChangeType;
                 _SapphiArtChanRenderer_Face.SetBlendShapeWeight(4, _SapphiArtChanFacial);
-
             }
+
             else if (_EyesChangeType == "closedR")
             {
                 _SapphiArtChanFacial_Eye_R_Closed = _SapphiArtChanFacial;
                 _EyesLastChangeType = _EyesChangeType;
                 _SapphiArtChanRenderer_Face.SetBlendShapeWeight(5, _SapphiArtChanFacial);
-
             }
+
             else if (_EyesChangeType == "wideL")
             {
                 _SapphiArtChanFacial_Eye_L_Wide = _SapphiArtChanFacial;
                 _EyesLastChangeType = _EyesChangeType;
                 _SapphiArtChanRenderer_Face.SetBlendShapeWeight(2, _SapphiArtChanFacial);
-
             }
+
             else if (_EyesChangeType == "wideR")
             {
                 _SapphiArtChanFacial_Eye_R_Wide = _SapphiArtChanFacial;
@@ -292,11 +288,10 @@ public class SapphiArtChan_AnimManager : MonoBehaviour {
             }
         }
 
-
-
         else if (_GeneralChangeType == "eyebrows")
         {
             string _EyebrowsChangeType = _AnimationManagerUI._EyebrowsChangeType;
+
             if (_EyebrowsChangeType == null)
                 return;
 
@@ -349,6 +344,7 @@ public class SapphiArtChan_AnimManager : MonoBehaviour {
         else if (_GeneralChangeType == "mouth")
         {
             string _MouthChangeType = _AnimationManagerUI._MouthChangeType;
+
             if (_MouthChangeType == null)
                 return;
 
@@ -406,12 +402,14 @@ public class SapphiArtChan_AnimManager : MonoBehaviour {
                 _SapphiArtChanRenderer_Face.SetBlendShapeWeight(9, _SapphiArtChanFacial);
 
             }
+
             else if (_MouthChangeType == "puff")
             {
                 _SapphiArtChanFacial_Mouth_Puff = _SapphiArtChanFacial;
                 _MouthLastChangeType = _MouthChangeType;
                 _SapphiArtChanRenderer_Face.SetBlendShapeWeight(10, _SapphiArtChanFacial);
             }
+
             else if (_MouthChangeType == "smile")
             {
                 _SapphiArtChanFacial_Mouth_Smile = _SapphiArtChanFacial;
@@ -448,7 +446,6 @@ public class SapphiArtChan_AnimManager : MonoBehaviour {
             }
         }
     }
-
 
 
     void Update ()

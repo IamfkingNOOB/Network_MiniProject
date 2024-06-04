@@ -42,6 +42,7 @@ MonoBehaviour:
         - globalObjectIdString: GlobalObjectId_V1-2-9fc0d4010bbf28b4594072e72b8655ab-501297056-0
         - globalObjectIdString: GlobalObjectId_V1-2-9fc0d4010bbf28b4594072e72b8655ab-567406190-0
         - globalObjectIdString: GlobalObjectId_V1-2-9fc0d4010bbf28b4594072e72b8655ab-1879323248-0
+        - globalObjectIdString: GlobalObjectId_V1-2-9fc0d4010bbf28b4594072e72b8655ab-1641299096-0
         values:
         - colorIndex: 9
           iconNameOrGuid: Folder Icon
@@ -91,3 +92,5 @@ MonoBehaviour:
           iconNameOrGuid: EventSystem Icon
         - colorIndex: 5
           iconNameOrGuid: Canvas Icon
+        - colorIndex: 0
+          iconNameOrGuid: Camera Icon
