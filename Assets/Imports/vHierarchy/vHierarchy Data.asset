@@ -43,6 +43,8 @@ MonoBehaviour:
         - globalObjectIdString: GlobalObjectId_V1-2-9fc0d4010bbf28b4594072e72b8655ab-567406190-0
         - globalObjectIdString: GlobalObjectId_V1-2-9fc0d4010bbf28b4594072e72b8655ab-1879323248-0
         - globalObjectIdString: GlobalObjectId_V1-2-9fc0d4010bbf28b4594072e72b8655ab-1641299096-0
+        - globalObjectIdString: GlobalObjectId_V1-2-9fc0d4010bbf28b4594072e72b8655ab-2061716929-0
+        - globalObjectIdString: GlobalObjectId_V1-2-9fc0d4010bbf28b4594072e72b8655ab-1133365492-0
         values:
         - colorIndex: 9
           iconNameOrGuid: Folder Icon
@@ -87,10 +89,14 @@ MonoBehaviour:
         - colorIndex: 0
           iconNameOrGuid: AvatarMask On Icon
         - colorIndex: 6
-          iconNameOrGuid: 
-        - colorIndex: 0
+          iconNameOrGuid: Folder Icon
+        - colorIndex: 3
           iconNameOrGuid: EventSystem Icon
         - colorIndex: 5
           iconNameOrGuid: Canvas Icon
         - colorIndex: 0
           iconNameOrGuid: Camera Icon
+        - colorIndex: 4
+          iconNameOrGuid: Folder Icon
+        - colorIndex: 2
+          iconNameOrGuid: 
