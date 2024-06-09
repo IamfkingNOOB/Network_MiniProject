@@ -75,4 +75,22 @@ public class ChattingUI : NetworkBehaviour
 
         scrollbar_ChatPanel.value = 0;
     }
+
+    public void OnClick_Exit()
+    {
+        NetworkManager.singleton.StopHost();
+    }
+
+    public void OnValueChanged_ToggleButton(string input)
+    {
+        button_Send.interactable = !string.IsNullOrEmpty(input);
+    }
+
+    public void OnEndEdit_SendMsg(string input)
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            OnClick_SendChat();
+        }
+    }
 }
