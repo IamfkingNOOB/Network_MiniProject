@@ -13,5 +13,17 @@ public class LoginPopup : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI text_Error;
 
+    private void Awake()
+    {
+        inputField_ipAddress.text = "localhost";
 
+        inputField_userName.onValueChanged.RemoveAllListeners();
+        inputField_userName.onValueChanged.AddListener((text) =>
+        {
+            bool isValueChanged = !string.IsNullOrEmpty(text);
+
+            button_startAsHost.interactable = isValueChanged;
+            button_startAsClient.interactable = isValueChanged;
+        });
+    }
 }
