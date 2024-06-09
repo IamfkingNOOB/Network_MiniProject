@@ -1745,6 +1745,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Login Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 2120141236442990722, guid: 7d97ba113abbc0b4eac46b190939ce3f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2498332638404883654, guid: 7d97ba113abbc0b4eac46b190939ce3f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
