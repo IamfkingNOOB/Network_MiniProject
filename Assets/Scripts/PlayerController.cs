@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     #region Input Systems
 
     // 입력을 받아 캐릭터의 이동 방향을 결정하는 함수
-    private void OnMove(InputAction.CallbackContext callbackContext)
+    public void OnMove(InputAction.CallbackContext callbackContext)
     {
         inputVector = callbackContext.ReadValue<Vector2>();
     }
