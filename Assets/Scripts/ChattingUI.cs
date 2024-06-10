@@ -1,79 +1,97 @@
-using Mirror;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
+using System.Collections.Generic;
+using System.Collections;
 
 public class ChattingUI : NetworkBehaviour
 {
     [Header("UI")]
-    [SerializeField] private TextMeshProUGUI text_ChatText;
-    [SerializeField] private Scrollbar scrollbar_ChatPanel;
-    [SerializeField] private TMP_InputField inputField_InputChat;
-    [SerializeField] private Button button_Send;
-    [SerializeField] private ScrollRect scrollRect_ChatHistory;
+    [SerializeField] Text Text_ChatHistory;
+    [SerializeField] Scrollbar ScrollBar_Chat;
+    [SerializeField] InputField Input_ChatMsg;
+    [SerializeField] Button Btn_Send;
 
-    private readonly Dictionary<NetworkConnectionToClient, string> _connectedNameDic = new Dictionary<NetworkConnectionToClient, string>();
-    private string _localPlayerName;
+    internal static string _localPlayerName;
+
+    // 서버온리 - 연결된 플레이어들 이름
+    internal static readonly Dictionary<NetworkConnectionToClient, string> _connectedNameDic = new Dictionary<NetworkConnectionToClient, string>();
+
+    public void SetLocalPlayerName(string userName)
+    {
+        _localPlayerName = userName;
+    }
 
     public override void OnStartServer()
     {
+        this.gameObject.SetActive(true);
         _connectedNameDic.Clear();
     }
 
     public override void OnStartClient()
     {
-
+        this.gameObject.SetActive(true);
+        Text_ChatHistory.text = string.Empty;
     }
 
-    
-    public void OnClick_SendChat()
+    [Command(requiresAuthority = false)]
+    void CommandSendMsg(string msg, NetworkConnectionToClient sender = null)
     {
-        string currentInputChat = inputField_InputChat.text;
-
-        if (!string.IsNullOrEmpty(currentInputChat))
+        if (!_connectedNameDic.ContainsKey(sender))
         {
-            SendChat(currentInputChat);
-        }
-    }
-
-    [Command]
-    private void SendChat(string chat, NetworkConnectionToClient sender = null)
-    {
-        if (_connectedNameDic.ContainsKey(sender))
-        {
-            // var player = sender.identity.GetComponent<Player>();
-            // var playerName = player.playerName;
-            // _connectedNameDic.Add(sender, playerName);
+            var player = sender.identity.GetComponent<ChatUser>();
+            var playerName = player.PlayerName;
+            _connectedNameDic.Add(sender, playerName);
         }
 
-        if (!string.IsNullOrEmpty(chat))
+        if (!string.IsNullOrWhiteSpace(msg))
         {
             var senderName = _connectedNameDic[sender];
-            OnRecvMessage(senderName, chat.Trim());
+            OnRecvMessage(senderName, msg.Trim());
         }
+    }
+
+
+    public void RemoveNameOnServerDisconnect(NetworkConnectionToClient conn)
+    {
+        _connectedNameDic.Remove(conn);
     }
 
     [ClientRpc]
-    private void OnRecvMessage(string senderName, string msg)
+    void OnRecvMessage(string senderName, string msg)
     {
-        string formatedMsg = (senderName == _localPlayerName) ? $"<color=red>{senderName}:</color> {msg}" : $"<color=blue>{senderName}:</color>{msg}";
+        string formatedMsg = (senderName == _localPlayerName) ?
+            $"<color=red>{senderName}:</color> {msg}" :
+            $"<color=blue>{senderName}:</color> {msg}";
+
         AppendMessage(formatedMsg);
     }
 
-    private void AppendMessage(string msg)
+    // ===================== [UI] =================================
+    void AppendMessage(string msg)
     {
         StartCoroutine(AppendAndScroll(msg));
     }
 
-    private IEnumerator AppendAndScroll(string msg)
+    IEnumerator AppendAndScroll(string msg)
     {
-        text_ChatText.text += msg + "\n";
+        Text_ChatHistory.text += msg + "\n";
 
         yield return null;
+        yield return null;
 
-        scrollbar_ChatPanel.value = 0;
+        ScrollBar_Chat.value = 0;
+    }
+
+    // ============================================================
+
+    public void OnClick_SendMsg()
+    {
+        var currentChatMsg = Input_ChatMsg.text;
+        if (!string.IsNullOrWhiteSpace(currentChatMsg))
+        {
+            CommandSendMsg(currentChatMsg.Trim());
+        }
     }
 
     public void OnClick_Exit()
@@ -83,14 +101,16 @@ public class ChattingUI : NetworkBehaviour
 
     public void OnValueChanged_ToggleButton(string input)
     {
-        button_Send.interactable = !string.IsNullOrEmpty(input);
+        Btn_Send.interactable = !string.IsNullOrWhiteSpace(input);
     }
 
     public void OnEndEdit_SendMsg(string input)
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return)
+            || Input.GetKeyDown(KeyCode.KeypadEnter)
+            || Input.GetButtonDown("Submit"))
         {
-            OnClick_SendChat();
+            OnClick_SendMsg();
         }
     }
 }
